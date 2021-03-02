@@ -17,6 +17,7 @@ class RestaurantViewModel(private val doorDashApiClient: DoorDashApiClient) : Vi
 
     val isWaiting: ObservableField<Boolean> = ObservableField()
     val errorMessage: ObservableField<String> = ObservableField()
+    val loadStateLiveData: MutableLiveData<Status> = MutableLiveData()
     private val restaurantList: ObservableField<List<Restaurant>> = ObservableField()
     private var restaurantListLiveData: MutableLiveData<List<Restaurant>> = MutableLiveData()
     private val restaurantDetails: ObservableField<RestaurantDetails> = ObservableField()
@@ -26,19 +27,15 @@ class RestaurantViewModel(private val doorDashApiClient: DoorDashApiClient) : Vi
         isWaiting.set(true)
         errorMessage.set(null)
         restaurantListLiveData = fetchAllRestaurantsList()
-//        restaurantDetailsLiveData = fetchRestaurantDetails()
     }
 
     fun getAllRestaurants() : LiveData<List<Restaurant>>{
         return restaurantListLiveData
     }
 
-    fun getRestaurantDetails() : LiveData<RestaurantDetails>{
-        return restaurantDetailsLiveData
-    }
-
     private fun fetchAllRestaurantsList(): MutableLiveData<List<Restaurant>> {
         viewModelScope.launch {
+            loadStateLiveData.postValue(Status.LOADING)
             val result = doorDashApiClient.getAllRestaurants(DEFAULT_LAT, DEFAULT_LNG)
             if (result.status == Status.SUCCESS) {
                 restaurantList.set(result.data)
@@ -47,8 +44,10 @@ class RestaurantViewModel(private val doorDashApiClient: DoorDashApiClient) : Vi
             } else {
                 restaurantList.set(null)
                 if (result.data.isNullOrEmpty()) {
+                    loadStateLiveData.postValue(Status.EMPTY)
                     errorMessage.set("No restaurants found for this location")
                 } else {
+                    loadStateLiveData.postValue(Status.ERROR)
                     errorMessage.set(result.message)
                 }
             }

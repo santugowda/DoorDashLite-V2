@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ddlite.R
+import com.example.ddlite.data.base.Status
 import com.example.ddlite.data.model.Restaurant
 import com.example.ddlite.databinding.FragmentRestaurantListBinding
 import com.example.ddlite.presentation.viewmodel.RestaurantViewModel
@@ -43,6 +44,17 @@ class RestaurantListFragment : Fragment(), RestaurantsListAdapter.OnRestaurantSe
         restaurantViewer.layoutManager = linearLayoutManager
         restaurantViewer.adapter = restaurantsListAdapter
 
+        viewModel.loadStateLiveData.observe(viewLifecycleOwner, Observer {
+            when(it){
+                Status.EMPTY -> {
+                    viewModel.errorMessage.set(getString(R.string.msg_list_is_empty))
+                }
+                else -> {
+                    viewModel.errorMessage.set(getString(R.string.msg_fetch_list_has_error))
+                }
+            }
+        })
+
         viewModel.getAllRestaurants().observe(viewLifecycleOwner, Observer { restaurantsList ->
             if (restaurantsList != null) {
                 restaurantsListAdapter?.addAll(restaurantsList)
@@ -58,8 +70,6 @@ class RestaurantListFragment : Fragment(), RestaurantsListAdapter.OnRestaurantSe
                     restaurantId = restaurant.id
                 )
             findNavController().navigate(directions)
-        } else {
-            //show some error
         }
     }
 }

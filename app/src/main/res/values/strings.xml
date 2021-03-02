@@ -21,4 +21,6 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="error_fetching_details">Error fetching restaurant details</string>
+    <string name="msg_list_is_empty">Empty Restaurant List</string>
+    <string name="msg_fetch_list_has_error">Error fetching restaurant lists</string>
 </resources>

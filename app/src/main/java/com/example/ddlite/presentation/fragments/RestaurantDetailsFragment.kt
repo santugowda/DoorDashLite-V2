@@ -46,6 +46,8 @@ class RestaurantDetailsFragment : Fragment() {
             viewModel.fetchRestaurantDetails(restaurantId).observe(viewLifecycleOwner, Observer { restaurant ->
                 if(restaurant != null) { //handle error use cases
                     displayRestaurantDetails(restaurant)
+                } else {
+                    displayErrorMessage(restaurant)
                 }
             })
         }

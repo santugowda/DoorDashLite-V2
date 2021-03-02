@@ -12,23 +12,23 @@ class Restaurant {
 
     @SerializedName("description")
     @Expose
-     val description: String? = null
+    val description: String? = null
 
     @SerializedName("delivery_fee")
     @Expose
-     var deliveryFee: Int? = null
+    var deliveryFee: Int? = 0
 
     @SerializedName("cover_img_url")
     @Expose
-     val coverImgUrl: String? = null
+    val coverImgUrl: String? = null
 
     @SerializedName("id")
     @Expose
-     val id: Int? = null
+    var id: Int = 0
 
     @SerializedName("name")
     @Expose
-     val name: String? = null
+    val name: String? = null
 
 
     @Transient
@@ -47,6 +47,35 @@ class Restaurant {
         return displayDeliveryFee
     }
 
+    fun setDeliveryFee(deliveryFee: Int) {
+        this.deliveryFee = deliveryFee
+        updateDisplayDeliveryFee()
+    }
+
+    fun setNumberOfRatings(numberOfRatings: Int) {
+        this.numberOfRatings = numberOfRatings
+        updateDisplayRating()
+    }
+
+    fun setAverageRating(averageRating: Double) {
+        this.averageRating = averageRating
+        updateDisplayRating()
+    }
+
+    fun getAverageRating(): Double {
+        return averageRating
+    }
+
+    fun getNumberOfRatings(): Int {
+        return numberOfRatings
+    }
+
+    fun getDisplayRating(): String? {
+        if (displayRating == null) {
+            updateDisplayRating()
+        }
+        return displayRating
+    }
 
     private fun updateDisplayDeliveryFee() {
         var display: String?
