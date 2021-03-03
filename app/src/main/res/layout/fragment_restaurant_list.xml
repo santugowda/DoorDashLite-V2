@@ -43,6 +43,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/errorText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
