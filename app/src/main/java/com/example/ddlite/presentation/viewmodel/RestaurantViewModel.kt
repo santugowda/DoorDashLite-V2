@@ -45,7 +45,7 @@ class RestaurantViewModel(private val doorDashApiClient: DoorDashApiClient) : Vi
                 restaurantList.set(null)
                 if (result.data.isNullOrEmpty()) {
                     loadStateLiveData.postValue(Status.EMPTY)
-                    errorMessage.set("No restaurants found for this location")
+                    errorMessage.set("Something went wrong, please try again later :(")
                 } else {
                     loadStateLiveData.postValue(Status.ERROR)
                     errorMessage.set(result.message)
@@ -67,7 +67,7 @@ class RestaurantViewModel(private val doorDashApiClient: DoorDashApiClient) : Vi
                 } else {
                     restaurantDetails.set(null)
                     if (result.data == null) {
-                        errorMessage.set("Restaurants details not found")
+                        errorMessage.set("Error fetching restaurant details :(")
                     } else {
                         errorMessage.set(result.message)
                     }
