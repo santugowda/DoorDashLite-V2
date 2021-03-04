@@ -1,4 +1,4 @@
-# DoorDashLitev2
+# DoorDashLite
 A ‘lite’ version of DoorDash. Users will be able to view a list of restaurants in specified location and view details about the restaurant.
 
 Home Screen: Parse https://api.doordash.com/v2/restaurant/?lat=37.422740&lng=-122.139956 and displays resulting list of restaurants. 
