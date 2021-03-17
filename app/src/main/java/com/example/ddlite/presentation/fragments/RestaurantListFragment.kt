@@ -1,11 +1,12 @@
 package com.example.ddlite.presentation.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,9 @@ import com.example.ddlite.R
 import com.example.ddlite.data.model.Restaurant
 import com.example.ddlite.databinding.FragmentRestaurantListBinding
 import com.example.ddlite.presentation.viewmodel.RestaurantViewModel
+import com.example.ddlite.utils.DashSharedPref
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class RestaurantListFragment : Fragment(), RestaurantsListAdapter.OnRestaurantSelected {
 
@@ -58,4 +61,6 @@ class RestaurantListFragment : Fragment(), RestaurantsListAdapter.OnRestaurantSe
             )
         findNavController().navigate(directions)
     }
+
+
 }
